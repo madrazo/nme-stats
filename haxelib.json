@@ -1,0 +1,11 @@
+{
+	"name":"nme-go",
+	"url":"https://github.com/madrazo/nme-stats",
+	"license":"MIT",
+	"tags":["NME", "Debug", "Engine"],
+	"description":"NME Stats: show profile and debug information on screen",
+	"version":"0.0.1",
+	"releasenote":"First release",
+	"contributors":["madrazo","bamtanggames","ex"],
+	"dependencies":{}
+}
