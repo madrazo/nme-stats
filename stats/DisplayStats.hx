@@ -76,8 +76,8 @@ class DisplayStats extends TextField
       m_fpsPrecisionDecimalsPow = Math.pow(10, sFpsDecimals);
       m_dtPrecisionDecimalsPow = Math.pow(10, 3);
       
-      m_statsArray = [0,0,0,0];
-      m_oldStatsArray = [0,0,0,0];
+      m_statsArray = [0,0,0,0,0,0,0,0];
+      m_oldStatsArray = [0,0,0,0,0,0,0,0];
 
       addEventListener(Event.ENTER_FRAME, onEnter);
       Lib.current.stage.addEventListener(KeyboardEvent.KEY_UP, stage_onKeyUp);
@@ -158,8 +158,9 @@ class DisplayStats extends TextField
                m_showDt = Math.round(dt * m_dtPrecisionDecimalsPow) / m_dtPrecisionDecimalsPow;
             }
 
-            nme_displaystats_get_glstats( m_statsArray );
-            for (i in 0...4)
+            //nme_get_glstats( m_statsArray );
+            nme.system.System.getGLStats( m_statsArray );
+            for (i in 0...8)
             {
                if (m_statsArray[i] != m_oldStatsArray[i])
                {
@@ -171,8 +172,8 @@ class DisplayStats extends TextField
             if(m_dirtyText)
             {
                m_dirtyText = false;
-               var vertsTotal:Int = m_statsArray[0] + m_statsArray[2];
-               var callsTotal:Int = m_statsArray[1] + m_statsArray[3];
+               var vertsTotal:Int = m_statsArray[0] + m_statsArray[2] + m_statsArray[4] + m_statsArray[6];
+               var callsTotal:Int = m_statsArray[1] + m_statsArray[3] + m_statsArray[5] + m_statsArray[7];
                var buf = new StringBuf();
 
                //GL stats
@@ -184,12 +185,20 @@ class DisplayStats extends TextField
                   buf.add(m_statsArray[0]);
                   buf.add("\n   drawElements:\t");
                   buf.add(m_statsArray[2]);
+                  buf.add("\n   v drawArrays:\t\t\t");
+                  buf.add(m_statsArray[4]);
+                  buf.add("\n   v drawElements:\t");
+                  buf.add(m_statsArray[6]);
                   buf.add("\nGL calls: \t\t");
                   buf.add(callsTotal);
                   buf.add("\n   drawArrays:\t\t\t");
                   buf.add(m_statsArray[1]);
                   buf.add("\n   drawElements:\t");
                   buf.add(m_statsArray[3]);
+                  buf.add("\n   v drawArrays:\t\t");
+                  buf.add(m_statsArray[5]);
+                  buf.add("\n   v drawElements:\t");
+                  buf.add(m_statsArray[7]);
                   buf.add("\n");
                   buf.add(showFPS);
                   buf.add((fps==Math.ffloor(showFPS)?".0  /  ":"  /  "));
@@ -260,5 +269,5 @@ class DisplayStats extends TextField
       }
    }
 
-   private static var nme_displaystats_get_glstats = nme.PrimeLoader.load("nme_displaystats_get_glstats", "ov");
+   //private static var nme_get_glstats = nme.PrimeLoader.load("nme_get_glstats", "ov");
 }
